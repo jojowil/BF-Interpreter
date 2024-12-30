@@ -1,17 +1,32 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
+
+/*
+ * This version is translated from https://brainfuck.org/brainfuck.html
+ * Anything that was undefined is defined here with a specific outcome.
+ */
 
 public class bf {
 
     static final int DEFAULT_ARENA_SIZE = 30000;
+    static Scanner kb = new Scanner(System.in);
 
+    /**
+     * Simple usage message.
+     */
     public static void usage() {
         System.out.println("java bf [-m memsize] <bffile.b>\nOptions:");
         System.out.println("\t-m memsize (if >30,000 cells is required)\n");
         System.exit(255);
     }
 
+    /**
+     * BF interpreter engine
+     * @param code pointer to the text code from the file
+     * @param ARENA pointer to the memory arena
+     */
     public static void interpret(byte[] code, byte[] ARENA) {
         /*
          *  OP  Meaning
@@ -30,7 +45,7 @@ public class bf {
 
         while (cp < code.length) {
             //System.out.printf("cp = %d, ap = %d, ARENA[%d] = %d, code=%c %n", cp, ap, ap, ARENA[ap], code[cp]);
-            //fgetc(stdin);
+            //kb.next();
             switch (code[cp]) {
                 case '>':
                     ap++;
@@ -115,9 +130,6 @@ public class bf {
             } else usage(); // unknown option
         }
 
-        if (size == 0) size = DEFAULT_ARENA_SIZE;
-        ARENA = new byte[size];
-
         try {
             in = new FileInputStream(fname);
         } catch (FileNotFoundException e) {
@@ -129,9 +141,12 @@ public class bf {
             code = in.readAllBytes();
             in.close();
         } catch (IOException e) {
-            System.err.println("Cannot read BF code: " + e.getMessage());
+            System.err.println("Cannot read BF code from '"+fname+"': " + e.getMessage());
             return;
         }
+
+        if (size == 0) size = DEFAULT_ARENA_SIZE;
+        ARENA = new byte[size];
 
         // finally!
         interpret(code, ARENA);
