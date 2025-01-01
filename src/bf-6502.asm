@@ -23,6 +23,7 @@ define CPLO $20 ; $20/21 for code pointer
 define CPHI $21
 define APLO $30 ; $30/31 for arena pointer
 define APHI $31
+define TEMP $35
 
     ; let's get started
     JSR init ; setup our pointers
@@ -65,13 +66,14 @@ mnext3:
 mnext4:
     CMP #DOT
     BNE mnext5
-    JMP apin
+    JMP apout
 mnext5:
     CMP #COMMA
     BNE mnext6
     JMP apin
 mnext6:
     CMP #OPEN
+    BNE mnext7
     LDY #0
     LDA (APLO), Y
     BNE mnext7
@@ -79,6 +81,7 @@ mnext6:
 mnext7:
     TXA     ; retrieve saved!
     CMP #CLOSE
+    BNE idone
     LDY #0  ; prolly redundant
     LDA (APLO), Y
     BEQ idone
@@ -105,11 +108,13 @@ icdone:
 ;=========================
 ; decrement CP. if would underflow, decrement hi
 deccp:
+    STX TEMP
     LDX CPLO
     BNE cpskip
     DEC CPHI
 cpskip:
     DEC CPLO
+    LDX TEMP
     RTS
 
 ;=========================
@@ -124,11 +129,13 @@ iadone:
 ;=========================
 ; decrement AP. if would underflow, decrement hi
 decap:
+    STX TEMP
     LDX APLO
     BNE apskip
     DEC APHI
 apskip:
     DEC APLO
+    LDX TEMP
     RTS
 
 ;=========================
@@ -229,6 +236,10 @@ init:
 ; source code for BF program
 code:
     ; taken from hello3.v
+    ;TXT "+++>[+]"
+    ;dcb 0
+    TXT "++ > ++ > ++"
+    dcb 0
     TXT "+++++++++++[>++++++>+++++++++>++++++++>++++>+++>+<<<<<<-]>+++"
     TXT "+++.>++.+++++++..+++.>>.>-.<<-.<.+++.------.--------.>>>+.>-."
     dcb 0 ; end of program
