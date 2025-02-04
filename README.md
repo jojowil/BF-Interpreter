@@ -12,12 +12,12 @@ The interpreters are covered by the CC-BY-NC-SA license.
 
 The examples are covered under [CC0 1.0 Universal Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/) and are from Esolang's site.
 
-[hello1.b] is the complete copy of the highlighted text from Esolang.
+`hello1.b` is the complete copy of the highlighted text from Esolang.
 
-[hello2.b] is the undecorated version of hello1.
+`hello2.b` is the undecorated version of hello1.
 
-[hello3.b] is a slightly more precise rendering of the output.
+`hello3.b` is a slightly more precise rendering of the output.
 
-[hello4.b] is a more complex version that uses negaative numbers - supported by these interpreters.
+`hello4.b` is a more complex version that uses negative numbers - supported by these interpreters.
 
-[cellSize.b] calculates the site in bits of the the cells in the arena!
+`cellSize.b` calculates the size in bits of the the cells in the arena!
