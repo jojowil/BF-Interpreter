@@ -4,7 +4,7 @@ Using code examples from [Esolang's Hello World examples](https://esolangs.org/w
 
 This interpreter passes all of the Hello World versions that do not require OOB cell access in the arena.
 
-There are both C11 and Java 14 versions of the code in the src folder.
+There are C11, Java 14, and 6502 versions of the code in the src folder.
 
 Every effort has been made for these easy to understand using standard language components.
 
